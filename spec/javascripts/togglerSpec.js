@@ -3,7 +3,7 @@ describe('Trip detail toggler', function () {
     beforeEach(function () {
         loadFixtures('one_index_trip.html');
 
-        var toggler = Toggler();
+        var toggler = Toggler(); 
 
         $('.detail_toggle').click();
     });
