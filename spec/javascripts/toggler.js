@@ -1,38 +1,42 @@
-var togglePrototype = {
-    linkSelector  : '.detail_toggle',
-    detailSelector: '.detail',
-    hiddenClass   : 'hidden',
-    hideText      : 'Hide Details',
-    showText      : 'Show Details',
+var Toggler = function () {
 
-    init: function () {
-        var self = this;
-        $(this.linkSelector).on('click', function (ev) {
-            self.toggleOnClick(ev);
+    var self = {
+        link          : undefined,
+        linkSelector  : '.detail_toggle',
+        detailSelector: '.detail',
+        hiddenClass   : 'hidden',
+        hideText      : 'Hide Details',
+        showText      : 'Show Details'
+    };
+
+    self.init = function () {
+        $(self.linkSelector).on('click', function (ev) {
+            toggleOnClick(ev);
         });
-    },
+    };
 
-    toggleOnClick: function (ev) {
-        var self = this;
+    var toggleOnClick = function (ev) {
         ev.preventDefault();
 
-        this.link = $(ev.target);
-        this.link.text(
-            this.isDetailHidden() ? this.hideText: this.showText
+        self.link = $(ev.target);
+        self.link.text(
+            isDetailHidden() ? self.hideText: self.showText
         );
-        this.detailElement().toggleClass(self.hiddenClass);
-    },
+        detailElement().toggleClass(self.hiddenClass);
+    };
 
-    detailElement: function () {
-        return this.link.parent().find(this.detailSelector);
-    },
+    var detailElement = function () {
+        return self.link.parent().find(self.detailSelector);
+    };
 
-    isDetailHidden: function () {
-        return this.detailElement().hasClass(this.hiddenClass);
-    }
+    var isDetailHidden = function () {
+        return detailElement().hasClass(self.hiddenClass);
+    };
+
+    self.init();
+    return self;
 };
 
 $(function () {
-    var toggler = Object.create(togglePrototype);
-    toggler.init();
+    var toggler = Toggler();
 });
