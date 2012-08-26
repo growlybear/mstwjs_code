@@ -1,21 +1,38 @@
-function init() {
-    var toggle_links = $('.detail_toggle');
+var toggler = {
 
-    toggle_links.click(function (ev) {
-        var detail = $(this).siblings('.detail');
+    linkSelector  : '.detail_toggle',
+    detailSelector: '.detail',
+    hiddenClass   : 'hidden',
+    hideText      : 'Hide Details',
+    showText      : 'Show Details',
 
-        if (detail.hasClass('hidden')) {
-            $(this).text('Hide Details');
-        } else {
-            $(this).text('Show Details');
-        }
+    init: function () {
+        var self = this;
+        $(this.linkSelector).on('click', function (ev) {
+            self.toggleOnClick(ev);
+        });
+    },
 
-        detail.toggleClass('hidden');
-
+    toggleOnClick: function (ev) {
+        var self = this;
         ev.preventDefault();
-    });
-}
+
+        this.link = $(ev.target);
+        this.link.text(
+            this.isDetailHidden() ? this.hideText: this.showText
+        );
+        this.detailElement().toggleClass(self.hiddenClass);
+    },
+
+    detailElement: function () {
+        return this.link.parent().find(this.detailSelector);
+    },
+
+    isDetailHidden: function () {
+        return this.detailElement().hasClass(this.hiddenClass);
+    }
+};
 
 $(function () {
-    init();
+    toggler.init();
 });
