@@ -1,12 +1,10 @@
-function Toggle() {
-    this.linkSelector  = '.detail_toggle';
-    this.detailSelector= '.detail';
-    this.hiddenClass   = 'hidden';
-    this.hideText      = 'Hide Details';
-    this.showText      = 'Show Details';
-}
+var togglePrototype = {
+    linkSelector  : '.detail_toggle',
+    detailSelector: '.detail',
+    hiddenClass   : 'hidden',
+    hideText      : 'Hide Details',
+    showText      : 'Show Details',
 
-Toggle.prototype = {
     init: function () {
         var self = this;
         $(this.linkSelector).on('click', function (ev) {
@@ -35,6 +33,6 @@ Toggle.prototype = {
 };
 
 $(function () {
-    var toggler = new Toggle();
+    var toggler = Object.create(togglePrototype);
     toggler.init();
 });
